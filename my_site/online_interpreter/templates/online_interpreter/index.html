@@ -1,62 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <style>
-    body {
-      background-color: lightgray;
-      block-size: auto;
-    }
-
-    textarea {
-      /* font-family: inherit;
-      font-size: 100%;
-      vertical-align: middle; */
-
-      width: 50%;
-      height: 95%;
-
-
-      /* Form outline */
-      padding: 1em;
-      margin: .5em;
-      border: 1px solid rgb(190, 183, 183);
-      border-radius: 1em;
-    }
-
-    textarea:focus {
-      /* Additional highlight for focused elements */
-      border-color: gray;
-    }
-
-    button {
-      /* font-family: inherit;
-      font-size: 100%; */
-      margin: 0 auto;
-      display: block;
-    }
-
-    .input-output {
-      display: flex;
-      block-size: auto;
-      width: 100vw;
-      height: 95vh;
-    }
-  </style>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'online_interpreter/style.css' %}">
+  <script src="{% static 'online_interpreter/script.js' %}"></script>
   <title>Online interpreter</title>
 </head>
 
 <body>
   <form action="" method="post">
     {% csrf_token %}
-    <div class="input-output" {{ code_form }} {{ stdio_form }} </div>
-      <button type="submit" id="id_launch">Launch</button>
-  </form>
-  <!-- <form action="" method="post">
-      {% csrf_token %}
+    <div id="two-textareas">
+      <div id="code-box">{{ code_form }}<pre id="highlight-area"></pre></div>
       {{ stdio_form }}
-    </form> -->
+    </div>
+    <button type="submit" id="id_launch">Launch</button>
+  </form>
 </body>
 
 </html>

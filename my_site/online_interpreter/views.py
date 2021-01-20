@@ -9,13 +9,12 @@ from .forms import CodeForm, StdIOForm
 
 class InterpreterView(View):
     template_name = "online_interpreter/index.html"
-    initial_code = "# Put your code here\n"
-    initial_input = ">>> "
-    futher_input = ""
+    initial_code = "# Type your Python code here and push Launch button.\n"
+    optional_input = ""
 
     def get(self, request, *args, **kwargs):
         left_form = CodeForm(initial={"user_code": self.initial_code})
-        right_form = StdIOForm(initial={"std_io": self.initial_input})
+        right_form = StdIOForm()
         return render(
             request,
             self.template_name,
@@ -29,6 +28,8 @@ class InterpreterView(View):
         left_form = CodeForm(request.POST)
         right_form = StdIOForm(request.POST)
         if left_form.is_valid() and right_form.is_valid():
+            self.optional_input = right_form.cleaned_data["std_io"]
+
             _stdout = io.StringIO()
             _stdin = io.StringIO()
             # capture sys.stdout, sys.stdin
@@ -36,7 +37,7 @@ class InterpreterView(View):
             _stdin = sys.stdin
 
             codeOut = io.StringIO()
-            codeIn = io.StringIO(initial_value=right_form.cleaned_data["std_io"])
+            codeIn = io.StringIO(initial_value=self.optional_input)
             # replace sys.stdout, sys.stdin
             sys.stdout = codeOut
             sys.stdin = codeIn
@@ -56,8 +57,11 @@ class InterpreterView(View):
             codeOut.close()
             codeIn.close()
 
-            self.futher_input = f'{right_form.cleaned_data["std_io"]}\n{output}'
-            right_form = StdIOForm(initial={"std_io": self.futher_input})
+            if self.optional_input:
+                self.optional_input = f'{self.optional_input}\n{output}'
+            else:
+                self.optional_input = output
+            right_form = StdIOForm(initial={"std_io": self.optional_input})
             return render(
                 request,
                 self.template_name,

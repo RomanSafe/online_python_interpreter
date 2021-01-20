@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,400');
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: lightgray;
+}
+
+#two-textareas {
+  display: flex;
+  height: 96vh;
+  box-sizing: content-box;
+}
+
+textarea,
+pre#highlight-area {
+  resize: none;
+  width: 50vw;
+  height: 100%;
+  padding: 1em;
+  margin: 3px;
+  border-radius: 1em;
+  color: white;
+  caret-color: #ddd;
+  line-height: 16pt;
+  font-size: 10pt;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 400;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 1em;
+  margin: 0;
+}
+
+textarea#id_std_io {
+  margin-left: 3px;
+  background-color: #444;
+}
+
+textarea#id_user_code {
+  color: #444;
+  background-color: #444;
+  margin-right: 3px;
+}
+
+textarea#id_std_io:focus,
+textarea#id_user_code:focus {
+  outline: yellow solid 3px;
+}
+
+pre#highlight-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 100%;
+  overflow: auto;
+  width: 50vw;
+  padding: 1em;
+  margin-right: 3px;
+}
+
+button {
+  font-family: 'Roboto Mono';
+  margin: .5em auto;
+  display: block;
+  width: 8em;
+  border-radius: 1em;
+}
+
+button:hover {
+  background-color: darkgray;
+}
+
+/* syntax highlight -------------------------------*/
+
+.highlight-comma,
+.highlight-colon,
+.highlight-keyword,
+.highlight-operator,
+.highlight-function,
+.highlight-function-name {
+  font-weight: 400;
+}
+
+.highlight-argument {
+  font-style: italic;
+}
+
+.highlight-default,
+.highlight-colon,
+.highlight-semicolon,
+.highlight-comma { color: #ddd; }
+
+.highlight-keyword,
+.highlight-operator  { color: #ff6192; }
+
+.highlight-function { color: #47A3FF; }
+
+.highlight-function-name { color: #61FFD3; }
+
+.highlight-argument { color: #FFBC61 }
+
+.highlight-string { color: #9AFF76; }
+
+.highlight-number { color: #C049FE; }
+
+.highlight-comment { color: lightgray }
+
+.highlight-left-parentheses,
+.highlight-right-parentheses,
+.highlight-left-bracket,
+.highlight-right-bracket { color: #82C0FF; }
