@@ -1,6 +1,3 @@
-import tempfile
-
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import LiveServerTestCase, SimpleTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
 
@@ -23,9 +20,15 @@ CODE = """def f(word):
 print(f(input()))
 print(f(input()))
 """
+CREATE_TEMP_FILE = """import tempfile
+with tempfile.TemporaryFile(mode="w+") as fp:
+    fp.write("Hello world!")
+    fp.seek(0)
+    print(fp.read())
+"""
 
 
-class FunctionalTests(StaticLiveServerTestCase):
+class FunctionalTests(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -43,7 +46,7 @@ class FunctionalTests(StaticLiveServerTestCase):
         user_code.send_keys("print('Hello world')")
         self.browser.find_element_by_id("id_launch").click()
         std_io = self.browser.find_element_by_id("id_std_io")
-        self.assertMultiLineEqual(std_io.text, "Hello world")
+        self.assertEqual(std_io.text, "Hello world")
 
     def test_user_input(self):
         self.browser.get("%s%s" % (self.live_server_url, ""))
@@ -143,11 +146,10 @@ class FunctionalTests(StaticLiveServerTestCase):
         errorlist = self.browser.find_element_by_class_name("errorlist")
         self.assertIn("You can't use ftp protocol", errorlist.text)
 
-
-# >>> with tempfile.NamedTemporaryFile(mode='w+') as fp:
-# ...     fp.write('Hello world!')
-# ...     fp.name
-# ...     fp.seek(0)
-# ...     fp.read()
-# ...
-# FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpf33e7l33'
+    def test_creating_temporary_file(self):
+        self.browser.get("%s%s" % (self.live_server_url, ""))
+        user_code = self.browser.find_element_by_id("id_user_code")
+        user_code.send_keys(CREATE_TEMP_FILE)
+        self.browser.find_element_by_id("id_launch").click()
+        std_io = self.browser.find_element_by_id("id_std_io")
+        self.assertEqual(std_io.text, "Hello world!")
