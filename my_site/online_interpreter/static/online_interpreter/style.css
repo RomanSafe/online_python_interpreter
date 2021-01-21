@@ -7,6 +7,7 @@ body {
   height: 100vh;
   position: relative;
   background-color: lightgray;
+  font-family: 'Roboto Mono';
 }
 
 #two-textareas {
@@ -66,11 +67,13 @@ pre#highlight-area {
 }
 
 button {
-  font-family: 'Roboto Mono';
+  font-family: inherit;
   margin: .5em auto;
-  display: block;
+  /* display: block; */
   width: 8em;
   border-radius: 1em;
+  position: absolute;
+  left: 20vw;
 }
 
 button:hover {
@@ -82,6 +85,27 @@ ul.errorlist {
   bottom: 4vh;
   left: 0vw;
   color: red;
+}
+
+label[for=id_timeout] {
+  font-family: inherit;
+  font-size: 11pt;
+  position: absolute;
+  bottom: 1.3vh;
+  right: 20vw;
+  margin: 0 auto;
+}
+
+input#id_timeout {
+  font-family: inherit;
+  text-align: right;
+  margin: 0 auto;
+  width: 3em;
+  border-radius: 1em;
+  position: absolute;
+  bottom: 1vh;
+  right: 14vw;
+  
 }
 
 /* syntax highlight -------------------------------*/

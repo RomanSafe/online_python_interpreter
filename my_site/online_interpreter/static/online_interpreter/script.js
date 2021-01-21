@@ -287,4 +287,3 @@ function tokenize(inputString) {
 
   return tokens
 }
-

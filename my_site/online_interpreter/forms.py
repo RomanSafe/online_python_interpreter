@@ -56,10 +56,11 @@ regex_validator_ftp = RegexValidator(
 )
 
 
-class CodeForm(forms.Form):
+class PythonInterpreterForm(forms.Form):
     user_code = forms.CharField(
         widget=forms.Textarea,
         label=False,
+        initial="# Type your Python code here and push Launch button.\n",
         validators=[
             regex_validator_open,
             regex_validator_eval,
@@ -73,7 +74,5 @@ class CodeForm(forms.Form):
             regex_validator_ftp,
         ],
     )
-
-
-class StdIOForm(forms.Form):
     std_io = forms.CharField(widget=forms.Textarea, label=False, required=False)
+    timeout = forms.IntegerField(max_value=120, label="Timeout, sec", initial=10)

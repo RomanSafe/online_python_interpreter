@@ -12,10 +12,7 @@
 <body>
   <form action="" method="post">
     {% csrf_token %}
-    <div id="two-textareas">
-      <div id="code-box">{{ code_form }}<pre id="highlight-area"></pre></div>
-      {{ stdio_form }}
-    </div>
+    <div id="two-textareas">{{ form }}<pre id="highlight-area"></pre></div>
     <button type="submit" id="id_launch">Launch</button>
   </form>
 </body>
