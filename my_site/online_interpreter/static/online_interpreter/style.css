@@ -77,6 +77,13 @@ button:hover {
   background-color: darkgray;
 }
 
+ul.errorlist {
+  position: absolute;
+  bottom: 4vh;
+  left: 0vw;
+  color: red;
+}
+
 /* syntax highlight -------------------------------*/
 
 .highlight-comma,
