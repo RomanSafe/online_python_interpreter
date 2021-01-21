@@ -1,6 +1,7 @@
 import io
 import sys
 
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 
@@ -8,18 +9,49 @@ from .forms import PythonInterpreterForm
 
 
 class InterpreterView(View):
+    """View for the main page logic.
+
+    Attributes:
+        template_name: template of the main page;
+        optional_input: store input-output;
+        timeout: server's response timeout in seconds.
+
+    """
+
     template_name = "online_interpreter/index.html"
     optional_input = ""
     timeout = 10
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        """Serves GET HTTP requests.
+
+        Args:
+            request: HTTP request.
+
+        Returns:
+            HttpResponse: whose content is filled with the passed arguments
+            (rendered to string).
+
+        """
+
         return render(
             request,
             self.template_name,
             {"form": PythonInterpreterForm()},
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
+        """Serves POST HTTP requests.
+
+        Args:
+            request: HTTP request.
+
+        Returns:
+            HttpResponse: whose content is filled with the passed arguments
+            (rendered to string).
+
+        """
+
         form = PythonInterpreterForm(request.POST)
         if form.is_valid():
             self.optional_input = form.cleaned_data["std_io"]
@@ -28,8 +60,8 @@ class InterpreterView(View):
             _stdout = io.StringIO()
             _stdin = io.StringIO()
             # capture sys.stdout, sys.stdin
-            _stdout = sys.stdout
-            _stdin = sys.stdin
+            _stdout = sys.stdout  # type: ignore
+            _stdin = sys.stdin  # type: ignore
 
             codeOut = io.StringIO()
             codeIn = io.StringIO(initial_value=self.optional_input)

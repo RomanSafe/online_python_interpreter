@@ -3,7 +3,6 @@ import re
 from django import forms
 from django.core.validators import RegexValidator
 
-
 regex_validator_open = RegexValidator(
     regex=re.compile("open", flags=re.ASCII),
     message="You can't use open function",
@@ -57,6 +56,15 @@ regex_validator_ftp = RegexValidator(
 
 
 class PythonInterpreterForm(forms.Form):
+    """Form for the main page.
+
+    Attributes:
+        user_code: field for input user's code;
+        std_io: field for standard input-output;
+        timeout: field for setup of server's response timeout.
+
+    """
+
     user_code = forms.CharField(
         widget=forms.Textarea,
         label=False,
