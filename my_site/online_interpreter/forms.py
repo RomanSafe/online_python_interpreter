@@ -83,4 +83,4 @@ class PythonInterpreterForm(forms.Form):
         ],
     )
     std_io = forms.CharField(widget=forms.Textarea, label=False, required=False)
-    timeout = forms.IntegerField(max_value=120, label="Timeout, sec", initial=10)
+    timeout = forms.IntegerField(max_value=20, label="Timeout, sec", initial=5)
