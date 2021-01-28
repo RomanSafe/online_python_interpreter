@@ -10,3 +10,6 @@ The programme is packed using docker-compose.
 ```docker-compose -f docker-compose-deploy.yml up --build```
 
 This command build or rebuild services, create and start containers.
+
+## To run the programme in debug mode use a follow command from folder where docker-compose.yml is located:
+```docker-compose up```
