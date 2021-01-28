@@ -8,5 +8,5 @@ The programme is packed using docker-compose.
 
 ## To run the programme use a follow command from folder where docker-compose-deploy.yml is located:
 ```docker-compose -f docker-compose-deploy.yml up --build```
- 
+
 This command build or rebuild services, create and start containers.
