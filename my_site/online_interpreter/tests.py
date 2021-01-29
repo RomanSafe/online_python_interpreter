@@ -153,3 +153,14 @@ class FunctionalTests(LiveServerTestCase):
         self.browser.find_element_by_id("id_launch").click()
         std_io = self.browser.find_element_by_id("id_std_io")
         self.assertEqual(std_io.text, "Hello world!")
+
+    def test_timeout(self):
+        self.browser.get("%s%s" % (self.live_server_url, ""))
+        user_code = self.browser.find_element_by_id("id_user_code")
+        user_code.send_keys("[i ** i for i in range(1, 100_000)]")
+        timeout = self.browser.find_element_by_id("id_timeout")
+        timeout.clear()
+        timeout.send_keys("1")
+        self.browser.find_element_by_id("id_launch").click()
+        std_io = self.browser.find_element_by_id("id_std_io")
+        self.assertEqual(std_io.text, "Timeout 1 sec. expired.")
